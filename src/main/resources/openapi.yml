@@ -1,0 +1,242 @@
+openapi: 3.0.1
+info:
+  title: Todo API
+  description: Manage todos for users and admins
+  version: 1.0
+
+servers:
+  - url: http://localhost:9090
+    description: Running on
+
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Register a new user
+      description: Register a new user with a username, password, and role.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid input
+        '409':
+          description: Username already exists
+
+  /api/v1/todo:
+    get:
+      summary: Get user todos
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoResponse'
+    post:
+      summary: Create a new todo
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoRequest'
+            examples:
+              example1:
+                summary: Sample Todo Request
+                value:
+                  title: "Buy groceries"
+                  description: "Buy milk, eggs, and bread"
+                  dueDate: "2025-03-01"
+                  completed: false
+      responses:
+        '201':
+          description: Todo created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+        '400':
+          description: Invalid input
+
+  /api/v1/todo/{id}:
+    get:
+      summary: Get todo by ID
+      security:
+        - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Todo found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+        '404':
+          description: Todo not found
+    put:
+      summary: Update a todo
+      security:
+        - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoRequest'
+            examples:
+              example1:
+                summary: Sample Todo Update Request
+                value:
+                  title: "Update groceries list"
+                  description: "Add vegetables and fruits"
+                  dueDate: "2025-03-05"
+                  completed: true
+      responses:
+        '200':
+          description: Todo updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+        '404':
+          description: Todo not found
+    delete:
+      summary: Delete a todo
+      security:
+        - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Todo deleted successfully
+        '404':
+          description: Todo not found
+
+  /api/v1/todo/all:
+    get:
+      summary: Get all todos (Admin only)
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved all todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoResponse'
+        '403':
+          description: Access denied
+
+components:
+  schemas:
+    TodoRequest:
+      type: object
+      required:
+        - title
+        - dueDate
+      properties:
+        title:
+          type: string
+          example: Buy groceries
+        description:
+          type: string
+          nullable: true
+          example: Buy milk, eggs, and bread
+        dueDate:
+          type: string
+          format: date
+          example: 2025-03-01
+        completed:
+          type: boolean
+          example: false
+
+    TodoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Buy groceries
+        description:
+          type: string
+          nullable: true
+          example: Buy milk, eggs, and bread
+        dueDate:
+          type: string
+          format: date
+          example: 2025-03-01
+        completed:
+          type: boolean
+          example: false
+
+    UserRequest:
+      type: object
+      required:
+        - username
+        - password
+        - role
+      properties:
+        username:
+          type: string
+          minLength: 3
+          example: user123
+        password:
+          type: string
+          minLength: 6
+          example: password123
+        role:
+          type: string
+          enum: [ USER, ADMIN ]
+          example: USER
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: user123
+        role:
+          type: string
+          example: USER
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Basic Authentication using username and password
+security:
+  - basicAuth: []
