@@ -31,7 +31,7 @@ case "$PROFILE" in
 
     "dev-fast")
         log "Starting application in DEV-FAST mode..."
-        mvn spring-boot:run -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dspring-boot.run.fork=false
+        mvn spring-boot:run -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dspring-boot.run.fork=false
         ;;
 
     "dev")
