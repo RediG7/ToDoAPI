@@ -28,10 +28,6 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# Docker
-docker-compose.override.yml
-Dockerfile
-
 # IDEs and Editors
 
 ## IntelliJ IDEA
@@ -70,14 +66,6 @@ build/
 **/classes
 **/test-classes
 **/surefire-reports
-
-# Checkstyle and SpotBugs
-checkstyle-result.xml
-spotbugsXml.xml
-spotbugs/
-
-# Build scripts
-run.sh
 
 # OS generated files
 .DS_Store
