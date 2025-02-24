@@ -1,0 +1,87 @@
+# General Files
+HELP.md
+logs/
+*.log
+*.tmp
+*.swp
+*.bak
+*.swo
+
+# Environment Files
+.env
+.env.dev
+.env.prod
+.env.prod-local
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Docker
+docker-compose.override.yml
+Dockerfile
+
+# IDEs and Editors
+
+## IntelliJ IDEA
+.idea
+.idea/**
+*.iws
+*.iml
+*.ipr
+
+## STS (Spring Tool Suite)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+## VS Code
+.vscode/
+
+# PostgreSQL
+*.pgdata
+
+# Swagger/OpenAPI
+src/main/resources/openapi.yml
+
+# Compiled classes
+**/classes
+**/test-classes
+**/surefire-reports
+
+# Checkstyle and SpotBugs
+checkstyle-result.xml
+spotbugsXml.xml
+spotbugs/
+
+# Build scripts
+run.sh
+
+# OS generated files
+.DS_Store
+Thumbs.db
