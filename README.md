@@ -92,7 +92,10 @@ docker-compose --env-file .env.prod up --build -d
 ## API Endpoints
 
 All API endpoints are documented in **Swagger UI**:
-- [Swagger UI](http://localhost:9090/swagger-ui/index.html)
+- [**Live Swagger UI**](https://testing-deployment-73v6.onrender.com/swagger-ui/index.html)
+- [**Local Swagger UI**](http://localhost:9090/swagger-ui/index.html)
+
+> **Note:** Due to Render’s cold-start mechanism, the live deployment might take up to **50 seconds** to start.
 
 Additionally, the OpenAPI specification is available in `src/main/resources/openapi.yml`.
 
